@@ -1,0 +1,82 @@
+{
+	"name":"",
+	"url":"https://vmiis.github.io/modules/panels/panel.2.html",
+	"parameters":{
+		"sql_participant" : "@('Initials')+' '+@('DOB')"
+	},
+	"panel":
+	{
+		"columns":
+		[
+			{
+				"hidden":"1",
+				"sections":
+				[
+					{
+						"name":"Participant and Notes",
+						"modules":
+						[
+							{
+								"module_id":"participant",
+								"name":"Participant",
+								"table_id":"20011117",
+								"url":"/modules/participant.html",
+								"counting":"1"
+							}
+							,{
+								"module_id":"task_notes",
+								"name":"Notes",
+								"table_id":"20011118",
+								"url":"/modules/task_notes.html",
+								"counting":"1"
+							}
+						]
+					}
+				]
+			}
+			,{
+				"sections" :
+				[
+					{
+						"name":"Tasks",
+						"modules":
+						[
+							{
+								"module_id":"task1",
+								"name":"Task 1",
+								"table_id":"20011120",
+								"url":"/modules/task/under_construction.html",
+								"child":"1",
+								"single_record":"1",
+								"counting":"1",
+								"quest":"1",
+								"form_module":"task1_form"
+							}
+							,{
+								"module_id":"task1_form",
+								"table_id":"20011120",
+								"url":"/modules/task/under_construction.form.html"
+							}
+							,{
+								"module_id":"task2",
+								"name":"Task 2",
+								"table_id":"20011121",
+								"url":"/modules/task/under_construction.html",
+								"child":"1",
+								"single_record":"1",
+								"counting":"1",
+								"quest":"1",
+								"form_module":"task1_form"
+							}
+							,{
+								"module_id":"task1_form",
+								"table_id":"20011121",
+								"url":"/modules/task/under_construction.form.html"
+							}
+						]
+					}
+				]
+			}
+		]
+	}
+}

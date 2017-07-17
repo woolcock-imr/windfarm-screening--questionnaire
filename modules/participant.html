@@ -1,0 +1,150 @@
+<section>
+      VmInclude:__PARTS__/grid/grid.html
+</section>
+<script>
+    function F__ID(){
+        //-------------------------------------
+        _fields="_Form,Registration_ID,_Data_Entry,_Setup,_Quest,_Report_1,_Login_ID,_Password";
+        _fields+=",Submit Date|DateTime,Submitted by|Author,_Delete";
+        //-------------------------------------
+        VmInclude:__PARTS__/grid/grid.js
+        VmInclude:__PARTS__/style/ease-in-out.2.js
+        //-------------------------------------
+		var login_setup_tid=_mlist[_ids['participant_login_setup']].table_id;
+		//-------------------------------------
+        $('#D__ID').on('load',function(){  _set_req(); _request_data();  })
+        $('#D__ID').on('back',function(){  _set_req(); _request_data();  })
+        //-------------------------------------
+        _cell_render=function(records,I,field,td,set_value,source){
+            switch(field){
+                case 'Record_ID':
+                    records[I].vm_custom[field]=true;
+                    td.html(records[I].UID);
+                    break;
+					case 'Gender':
+	                    VmInclude:__LIB__/vmiis/Common-Code/grid/field_gender.js
+	                    break;
+	                case 'DOB':
+	                    VmInclude:__LIB__/vmiis/Common-Code/grid/field_dob.js
+	                    break;
+                case '_Data_Entry':
+                    records[I].vm_custom[field]=true;
+                    if(_records[I].UID===undefined) return;
+                    td.html("<u style='cursor:pointer'>Data Entry</u>");
+                    td.find('u').on('click',function(){
+						var module="M_"+_sys.UID+"_participant_child_panel";
+						if($vm.module_list[module]==undefined){
+							var url=$vm.url(_config.parameters.child_configuration_url);
+							if(url.indexOf('?')==-1) url=url+"?_v="+$vm.version;
+							else url=url+"&_v="+$vm.version;
+							url=$vm.url(url);
+							if(url[0]=='/') url=$vm.module_hosting_path+url;
+							console.log('loading '+url);
+							$.get(url,function(text){
+								var text=$('<div/>').html(text).text();
+								//---------------------------
+								try{ var config=JSON.parse(text);}
+								catch (e){ alert("Error in config file\n"+e); return;}
+								//-----------------------------------------------
+								$vm.module_list[module]={url:config.url,var:{}}
+								//---------------------------
+								$vm.load_module_by_name(module,$vm.root_layout_content_slot,{
+									//------------------------
+									mobj:_mobj,
+									record:records[I],
+									sys:{
+										config:config,
+										UID:_sys.UID+"_staff_child",
+									},
+									//------------------------
+									child:"1",
+									name:records[I].Study_ID,
+									check_count_where:" where PUID="+records[I].UID,
+								})
+								//-----------------------------------------------
+							},'text').fail(function() {
+							    alert( "The file '"+url+"' doesn't exist!" );
+							});
+						}
+						else{
+							var id=$vm.module_list[module].id
+							$vm.show_module(id,$vm.root_layout_content_slot,{
+								record:records[I],
+								child:"1",
+								name:records[I].Study_ID,
+								check_count_where:" where PUID="+records[I].UID,
+							});
+						}
+                    });
+                    break;
+                case '_Setup':
+                    records[I].vm_custom[field]=true;
+                    if(_records[I].UID===undefined) return;
+                    td.html("<u style='cursor:pointer'>Setup</u>");
+                    td.find('u').on('click',function(){
+						var this_mobj=_mobj;
+						var this_record=records[I];
+						var op={
+							//----------------
+							sys:_sys,
+							mobj:this_mobj,
+							record:this_record,
+							//----------------
+							//setup_tid:_sys.config[nm].table_id,
+							participant_tid:_db_pid,
+							participant_uid:records[I].UID,
+							participant:records[I].Study_ID,
+							//----------------
+						}
+                        $vm.load_module_by_name(_ids['participant_login_setup'],$vm.root_layout_content_slot,op);
+                    });
+                    break;
+                case '_Quest':
+					records[I].vm_custom[field]=true;
+					if(_records[I].UID===undefined) return;
+					td.html("<u style='cursor:pointer'>Quest</u>");
+					td.find('u').on('click',function(){
+						var d="";
+						if($vm.server=='development') d="&database=development";
+						var p="?username="+records[I].S2+"&password="+records[I].S3+d;
+						var q_url="https://woolcock-imr.github.io/online-questionnaire/index.html"+p;
+						q_url=$vm.url(q_url)
+						window.open(q_url);
+					})
+					break;
+				case '_Report_1':
+                    records[I].vm_custom[field]=true;
+                    if(_records[I].UID===undefined) return;
+                    td.html("<u style='cursor:pointer'>PSIS</u>");
+                    td.find('u').on('click',function(){
+                        $vm.load_module_by_name(_ids['report_psis'],$vm.root_layout_content_slot,{
+                            participant_uid:_records[I].UID,
+                            participant:_records[I].Registration_ID
+                        });
+                    });
+                    break;
+                case '_Login_ID':
+                    records[I].vm_readonly[field]=true;
+                    td.html(records[I].S2);
+                    break;
+                case '_Password':
+                    records[I].vm_readonly[field]=true;
+                    td.html(records[I].S3);
+                    break;
+            }
+        }
+        //-------------------------------------
+        _set_req=function(){
+            var sql="with tb as (select Information,ID,PID,UID,PUID,DateTime,Author,RowNum=row_number() over (order by ID DESC) from [TABLE-"+_db_pid+"-@S1] )";
+            sql+=",tb2 as (select PUID,S2,S3 from [TABLE-"+login_setup_tid+"] )";
+            sql+=" select Information,ID,PID,UID,tb.PUID,DateTime,Author,RowNum,S2,S3 from tb left join tb2 on tb.UID=tb2.PUID where RowNum between @I6 and @I7";
+            var sql_n="select count(ID) from [TABLE-"+_db_pid+"-@S1]";
+            _req={cmd:'query_records',db_pid:_db_pid,sql:sql,sql_n:sql_n,s1:'"'+$('#keyword__ID').val()+'"',I:$('#I__ID').text(),page_size:$('#page_size__ID').val()}
+        }
+        //-------------------------------------
+    }
+</script>
+<style>
+    VmInclude:__PARTS__/grid/grid.css
+	VmInclude:__PARTS__/style/ease-in-out.2.css
+</style>

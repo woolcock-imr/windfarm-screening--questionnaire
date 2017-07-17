@@ -1,0 +1,20 @@
+{
+	"library_path":"https://cbs.wappsystem.com/dev/github",
+	"parts_path":"https://vmiis.github.io/parts",
+	"image_path":"https://image.datalinkedin.com",
+	"api_path_development":"https://cbs.wappsystem.com/dev/",
+	"api_path_production":"https://rt.woolcock.org.au/",
+	"modules":
+	{
+		"home":
+		{
+			"url":"https://vmiis.github.io/modules/home/home.html"
+		}
+	},
+	"panels":
+	{
+		"main":{
+			"config_url":"/configurations/main-panel.json"
+		}
+	}
+}
