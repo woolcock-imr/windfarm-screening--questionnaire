@@ -120,28 +120,28 @@ $(document).ready(function(){
 			text=text.replace(/https:\/\/cbs.wappsystem.com\/pro\/github/g,window.location.protocol+'//'+window.location.host);
 			text=text.replace(/https:\/\/image.datalinkedin.com/g,window.location.protocol+'//'+window.location.host+'/vmiis/images');
 			//do not use local system files
-			text=text.replace('http://127.0.0.1:8000/vmiis/api','https://vmiis.github.io/api');
-			text=text.replace('http://127.0.0.1:8000/vmiis/framework','https://vmiis.github.io/framework');
-			text=text.replace('http://127.0.0.1:8000/vmiis/parts','https://vmiis.github.io/parts');
-			text=text.replace('http://127.0.0.1:8000/vmiis/modules','https://vmiis.github.io/modules');
+			text=text.replace(/http:\/\/127.0.0.1:8000\/vmiis\/api/g,'https://vmiis.github.io/api');
+			text=text.replace(/http:\/\/127.0.0.1:8000\/vmiis\/framework/g,'https://vmiis.github.io/framework');
+			text=text.replace(/http:\/\/127.0.0.1:8000\/vmiis\/parts/g,'https://vmiis.github.io/parts');
+			text=text.replace(/http:\/\/127.0.0.1:8000\/vmiis\/modules/g,'https://vmiis.github.io/modules');
 		}
 		if(window.location.toString().indexOf('_d=1')!=-1){
 			//use local system files
-			text=text.replace('https://vmiis.github.io/api','http://127.0.0.1:8000/vmiis/api');
-			text=text.replace('https://vmiis.github.io/framework','http://127.0.0.1:8000/vmiis/framework');
-			text=text.replace('https://vmiis.github.io/parts','http://127.0.0.1:8000/vmiis/parts');
-			text=text.replace('https://vmiis.github.io/modules','http://127.0.0.1:8000/vmiis/modules');
+			text=text.replace(/https:\/\/vmiis.github.io\/api/g,'http://127.0.0.1:8000/vmiis/api');
+			text=text.replace(/https:\/\/vmiis.github.io\/framework/g,'http://127.0.0.1:8000/vmiis/framework');
+			text=text.replace(/https:\/\/vmiis.github.io\/parts/g,'http://127.0.0.1:8000/vmiis/parts');
+			text=text.replace(/https:\/\/vmiis.github.io\/modules/g,'http://127.0.0.1:8000/vmiis/modules');
 		}
 		if(window.location.toString().indexOf('_d=2')!=-1){
 			//use latest unstable version (master branch, not gh-pages branch)
-			text=text.replace('https://vmiis.github.io/api','https://raw.githubusercontent.com/vmiis/api/master');
-			text=text.replace('https://vmiis.github.io/framework','https://raw.githubusercontent.com/vmiis/framework/master');
-			text=text.replace('https://vmiis.github.io/parts','https://raw.githubusercontent.com/vmiis/parts/master');
-			text=text.replace('https://vmiis.github.io/modules','https://raw.githubusercontent.com/vmiis/modules/master');
-			text=text.replace('http://127.0.0.1:8000/vmiis/api','https://raw.githubusercontent.com/vmiis/api/master');
-			text=text.replace('http://127.0.0.1:8000/vmiis/framework','https://raw.githubusercontent.com/vmiis/framework/master');
-			text=text.replace('http://127.0.0.1:8000/vmiis/parts','https://raw.githubusercontent.com/vmiis/parts/master');
-			text=text.replace('http://127.0.0.1:8000/vmiis/modules','https://raw.githubusercontent.com/vmiis/modules/master');
+			text=text.replace(/https:\/\/vmiis.github.io\/api/g,'https://raw.githubusercontent.com/vmiis/api/master');
+			text=text.replace(/https:\/\/vmiis.github.io\/framework/g,'https://raw.githubusercontent.com/vmiis/framework/master');
+			text=text.replace(/https:\/\/vmiis.github.io\/parts/g,'https://raw.githubusercontent.com/vmiis/parts/master');
+			text=text.replace(/https:\/\/vmiis.github.io\/modules/g,'https://raw.githubusercontent.com/vmiis/modules/master');
+			text=text.replace(/http:\/\/127.0.0.1:8000\/vmiis\/api/g,'https://raw.githubusercontent.com/vmiis/api/master');
+			text=text.replace(/http:\/\/127.0.0.1:8000\/vmiis\/framework/g,'https://raw.githubusercontent.com/vmiis/framework/master');
+			text=text.replace(/http:\/\/127.0.0.1:8000\/vmiis\/parts/g,'https://raw.githubusercontent.com/vmiis/parts/master');
+			text=text.replace(/http:\/\/127.0.0.1:8000\/vmiis\/modules/g,'https://raw.githubusercontent.com/vmiis/modules/master');
 		}
 		return text;
 	}
