@@ -16,9 +16,9 @@ function F__ID(){
     VmInclude:__PARTS__/grid/grid.js
     VmInclude:__PARTS__/style/ease-in-out.js
     //------------------------
-	_fields="Registration_ID|S2,Complete Time|DateTime";
+	_fields="Registration_ID|PUID,Complete Time|DateTime";
 	//-------------------------------------
-	$('#aquery__ID').on('click',function(){alert(1);_set_req(); _request_data();})
+	$('#aquery__ID').on('click',function(){_set_req(); _request_data();})
 	//-------------------------------------
 	_set_req=_set_req_export=function(){
 	    var sql="select S2,DateTime from [TABLE-"+_db_pid+"]";
