@@ -21,7 +21,7 @@ function F__ID(){
 	$('#aquery__ID').on('click',function(){_set_req(); _request_data();})
 	//-------------------------------------
 	_set_req=_set_req_export=function(){
-	    var sql="select S2,DateTime from [TABLE-"+_db_pid+"]";
+	    var sql="select PUID,DateTime from [TABLE-"+_db_pid+"]";
 	    _req={cmd:'query_records',sql:sql}
 	}
 	//-------------------------------------
