@@ -44,6 +44,18 @@
 							}
 						]
 					}
+					,{
+						"name":"Reports",
+						"modules":
+						[
+							{
+								"module_id":"screening_complete",
+								"name":"Screening Completion",
+								"table_id":"20008713",
+								"url":"/modules/reports/screening_complete.html"
+							}
+						]
+					}
 				]
 			}
 			,{
