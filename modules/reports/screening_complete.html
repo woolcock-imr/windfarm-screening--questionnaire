@@ -16,15 +16,24 @@ function F__ID(){
     VmInclude:__PARTS__/grid/grid.js
     VmInclude:__PARTS__/style/ease-in-out.js
     //------------------------
-	_fields="Registration_ID|PUID,Complete Time|DateTime";
+	_fields="Registration_ID|PUID,First_Name,Last_Name,Complete Time|DateTime";
 	//-------------------------------------
 	$('#aquery__ID').on('click',function(){_set_req(); _request_data();})
 	//-------------------------------------
+	var registration_tid=_mlist[_ids.registration].table_id;
+	var screening_participant_tid=_mlist[_ids.screening_participant].table_id;
 	_set_req=_set_req_export=function(){
-	    var sql="select PUID,DateTime from [TABLE-"+_db_pid+"]";
+		var sql="with registration as (select UID,Information from [TABLE-"+registration_tid+"])";
+		sql+=", screening_participant as (select registration_id=@('Registration_ID') from [TABLE-"+screening_participant_tid+"])";
+		sql+=", participant as (select UID, Information from registration join screening_participant on UID=registration_id)";
+		sql+=",complete_quest as( select PUID,DateTime from [TABLE-"+_db_pid+"] WHERE PUID >29) ";
+		sql+=" select PUID, Information,DateTime from complete_quest join participant on PUID=UID";
 	    _req={cmd:'query_records',sql:sql}
 	}
 	//-------------------------------------
+
+
+
 }
 </script>
 <style>

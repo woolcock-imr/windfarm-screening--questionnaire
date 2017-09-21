@@ -159,10 +159,12 @@ var last=function(){
         $.getScript('https://ajax.aspnetcdn.com/ajax/jquery.ui/1.11.4/jquery-ui.min.js',function(){last_last();});
         $.getScript('https://ajax.aspnetcdn.com/ajax/jquery.validate/1.14.0/jquery.validate.min.js',function(){last_last();});
         $.getScript('https://sdk.amazonaws.com/js/aws-sdk-2.1.34.min.js',function(){last_last();});
-        $.getScript('https://www.google.com/jsapi',function(){
-            //please be aware of that "www.google.com" is not available in some countries (for example China)
-            google.load('visualization', '1', {'packages':['corechart'],callback:function(){last_last();} } );
+
+		$.getScript('https://www.gstatic.com/charts/loader.js',function(){
+            //google.load('visualization', '1', {'packages':['corechart'],callback:function(){last_last();} } );
+			google.charts.load('current', {'packages':['corechart']});
         });
+
         $('head').append("<link rel='stylesheet' href='https://ajax.aspnetcdn.com/ajax/jquery.ui/1.11.4/themes/redmond/jquery-ui.css'>");
     }, 300);
 }
