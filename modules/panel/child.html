@@ -1,0 +1,74 @@
+<section id=panel__ID>
+	<div id=info__ID></div>
+	VmInclude:__CURRENT_PATH__/task_links.html
+</section>
+
+<script>
+	function F__ID(){
+		//--------------------------------------------------------
+		var record;
+		$('#D__ID').on('load',function(){
+			record=$vm.vm['__ID'].op.input.record;
+			var info="Study ID:"+record.Study_ID;
+			$('#info__ID').text(info);
+		})
+		//--------------------------------------------------------
+		var prefix=$vm.vm["__ID"].name+"_";
+		$('#panel__ID li').on('click',function(){
+			if( $(this).hasClass( 'not_allowed__ID' )===true){
+				  alert("No permission!");
+				  return;
+			}
+			var m=$(this).attr('module');
+			if(m!=undefined){
+				if($vm.module_list[prefix+m]==undefined){
+					alert(prefix+m +" is not in the module list.");
+					return;
+				}
+				$vm.module_list[prefix+m].alert='1';
+				$vm.nav_load_module(prefix+m,"",{participant_uid:record.UID});
+			}
+		})
+		//--------------------------------------------------------
+	}
+</script>
+
+<style>
+	VmInclude:__PARTS__/navigation/navigation.css
+	#D__ID{
+		background-color:#fff;
+		height:100%;
+		overflow: auto;
+		animation: vm_module_fadein 1.0s;
+		padding:20px 0 0 20px;
+	}
+	#D__ID li {
+		color:#666;
+	}
+	li::before{
+		font-size: 20px!Important;
+	}
+	#D__ID li:hover {
+		color:#fff;
+	}
+	#D__ID a {
+		text-decoration: none;
+	}
+	#D__ID a:link {
+		color:#666;
+	}
+	#D__ID a:visited {
+		color:#666;
+	}
+	#D__ID a:hover {
+		color:#fff;
+	}
+	#D__ID a:active {
+		color:#666;
+	}
+	@media screen and (max-width:768px){
+		#D__ID{
+			padding:10px 0 0 10px;
+		}
+	}
+</style>

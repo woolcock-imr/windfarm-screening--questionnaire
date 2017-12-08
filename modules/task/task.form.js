@@ -1,7 +1,8 @@
+$('#back__ID').hide();
 //-------------------------------------
-var _ids=_config.module_ids;
-var sql_participant=_config.parameters.sql_participant;
-var participant_tid	=$vm.module_list[_ids.participant].table_id;
+var prefix=$vm.module_list[$vm.vm['__ID'].name].prefix; if(prefix==undefined) prefix="";
+var sql_participant="@('Initials')+' '+@('DOB')";
+var participant_tid	=$vm.module_list[prefix+'participant'].table_id;
 //-------------------------------------
 $('#Participant__ID').autocomplete({
     minLength:0,
@@ -23,17 +24,9 @@ $('#Participant_r__ID').on('click',function(){$('#Participant__ID').val('');$('#
 var _task_fields;
 //-------------------------------------
 var _set_participant_field=function(){
-    if($vm.vm['__ID'].op.from_grid==="1"){
-        $('#tr_participant__ID').show();
-    }
-    else{
-        $('#tr_participant__ID').hide();
-        _records[0].Participant=_trigger_parameters.participant;
-        _records[0].Participant_uid=_trigger_parameters.participant_uid;
-    }
-    $('#Participant__ID').blur(function(){
-        _records[I].Participant=$('#Participant__ID').val();
-        _records[I].Participant_uid=$('#Participant_uid__ID').val();
-    })
+	$('#tr_participant__ID').show();
+	if($vm.online_questionnaire===1){
+		$('#tr_participant__ID').hide();
+	}
 }
 //-------------------------------------
