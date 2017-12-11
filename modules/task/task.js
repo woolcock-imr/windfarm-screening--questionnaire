@@ -6,7 +6,7 @@ var prefix=$vm.module_list[$vm.vm['__ID'].name].prefix; if(prefix==undefined) pr
 var participant_pid=$vm.module_list[prefix+'participant'].table_id;
 var notes_pid=$vm.module_list[prefix+'clinical_trials_notes'].table_id;
 //var site_filter_pid=$vm.module_list[prefix+'site_filter'].table_id;
-var sql_participant="@('Initials')+' '+@('DOB')";
+var sql_participant="UID";
 //-------------------------------------
 var site_sql_where='';
 var site_array=[];
@@ -41,8 +41,9 @@ _set_req=function(){
         return;
     }
     var participant_where="";
-    var participant_uid=$vm.vm['__ID'].op.participant_uid;
-    if(participant_uid!==undefined){
+	var participant_uid="";
+	if($vm.vm['__ID'].op.input!=undefined) participant_uid=$vm.vm['__ID'].op.input.participant_uid;
+    if(participant_uid!=="" && participant_uid!==undefined){
         site_sql_where='';
         participant_where=" where uid="+participant_uid;
     }

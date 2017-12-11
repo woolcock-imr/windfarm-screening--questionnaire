@@ -43,6 +43,8 @@
         "hwpq_quest":      {"table_id":"20009088","url":"/modules/task/hwpq_WF.form.html"},
         "consent2":                   {"table_id":"20008713","url":"/modules/task/consent2.html","form_module":"consent2_quest","notes":"Consent 2","task":"Consent 2"},
         "consent2_quest":             {"table_id":"20008713","url":"/modules/task/consent2.form.html"},
+		"attitudes":                  {"table_id":"20009298","url":"/modules/task_screening/Attitudes.html","form_module":"attitudes_quest","notes":"Attitudes on Windfarms","task":"Attitudes on Windfarms"},
+		"attitudes_quest":            {"table_id":"20009298","url":"/modules/task_screening/Attitudes.form.html"},
         "thank_you_part_1":         	{"table_id":"20009190","url":"/modules/task/eligibility_check_thank_you_page.html","form_module":"thank_you_part_1_form","task":"Eligibility Check"},
         "thank_you_part_1_form":      {"table_id":"20009190","url":"/modules/task/eligibility_check_thank_you_page.form.html"},
 		"quest_list":{

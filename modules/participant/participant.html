@@ -4,12 +4,15 @@
 <script>
     function F__ID(){
         //-------------------------------------
-        _fields="_Form,Screening_Participant_ID|UID,_Data_Entry,_Setup,_Quest,_Report_1";
+        _fields="_Form,Registration_ID,Screening_Participant_ID|UID,_Data_Entry,_Setup,_Report_1";  /*,_Quest*/
         _fields+=",Submit Date|DateTime,Submitted by|Author,_Delete";
         //-------------------------------------
         VmInclude:__COMPONENT__/grid/grid.v3.js
 		_json='';
         //-------------------------------------
+		var prefix=_mlist[$vm.vm['__ID'].name].prefix;
+		var login_setup_tid=_mlist[prefix+'participant_login_setup'].table_id;
+		//-------------------------------------
         $('#D__ID').on('load',function(){  _set_req(); _request_data();  })
         //-------------------------------------
         _cell_render=function(records,I,field,td,set_value,source){
@@ -21,23 +24,20 @@
                     records[I].vm_readonly[field]=true;
                     break;
                 case '_Data_Entry':
-                    records[I].vm_custom[field]=true;
+					records[I].vm_custom[field]=true;
                     if(_records[I].UID===undefined) return;
                     td.html("<u style='cursor:pointer'>Data Entry</u>");
                     td.find('u').on('click',function(){
-                        $vm.load_module_by_name(_app_id+'data_entry_by_staff',$vm.root_layout_content_slot,{
-                            rid:_records[I].ID,participant_uid:_records[I].UID,
-                            participant_name:_records[I].UID,
-                        });
+                        $vm.nav_load_module('panel_child',$vm.root_layout_content_slot,{record:records[I]});
                     });
                     break;
                 case '_Setup':
-                    records[I].vm_custom[field]=true;
-                    if(_records[I].UID===undefined) return;
-                    td.html("<u style='cursor:pointer'>Setup</u>");
-                    td.find('u').on('click',function(){
-                        $vm.load_module_by_name(_app_id+'participant_login_setup',$vm.root_layout_content_slot,{uid:_records[I].UID});
-                    });
+					records[I].vm_custom[field]=true;
+					if(_records[I].UID===undefined) return;
+					td.html("<u style='cursor:pointer'>Setup</u>");
+					td.find('u').on('click',function(){
+						$vm.load_module_by_name(prefix+'participant_login_setup',$vm.root_layout_content_slot,{record:_records[I]});
+					});
                     break;
                 case '_Quest':
                     records[I].vm_custom[field]=true;
