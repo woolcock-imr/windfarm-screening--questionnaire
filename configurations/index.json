@@ -4,6 +4,7 @@
 	"default_production":"Yes",
     "panels":{
 		"panel_main":{"url":"modules/panel/main.html","modules":["main.json","task.json"]},
-		"windfarm_screening_child":{"url":"modules/panel/child.html","modules":["main.json","task.json"]}
+		"windfarm_screening_child":{"url":"modules/panel/child.html","modules":["main.json","task.json"]},
+		"panel_report":{"url":"modules/report/panel.html","modules":["../modules/report/module.json"]}
 	}
 }
