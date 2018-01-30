@@ -27,7 +27,7 @@ function F__ID(){
 		sql+=", screening_participant as (select registration_id=@('Registration_ID') from [TABLE-20009058])";
 		sql+=", participant as (select UID, Information from registration join screening_participant on UID=registration_id)";
 		sql+=",complete_quest as( select PUID,DateTime from [TABLE-20008713] WHERE PUID >29) ";
-		sql+=" select PUID, Information,DateTime from complete_quest join participant on PUID=UID";
+		sql+=" select PUID, Information,DateTime from complete_quest join participant on PUID=UID order by DateTime";
 	    _req={cmd:'query_records',sql:sql}
 	}
 	//-------------------------------------
