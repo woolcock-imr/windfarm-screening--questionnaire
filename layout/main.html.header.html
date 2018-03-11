@@ -1,12 +1,12 @@
 <div header id=header__ID>
     <nav id=nav__ID class="navbar navbar-expand-md navbar-dark">
         <div id=brand__ID>
-            <a class="navbar-brand d-none d-lg-inline-block" onclick="$vm.nav_load_module('panel_main_home');">
+            <a class="navbar-brand d-none d-lg-inline-block" onclick="$vm.nav_load_module('website_home');">
             	<div class=large_logo__ID>
 					<img width=360 src='__CURRENT_PATH__/main.html.header.html.logo.gif' style='margin-top:10px;margin-bottom:10px'></img>
     	        </div>
             </a>
-            <a class="navbar-brand d-lg-none" onclick="$vm.nav_load_module('panel_main_home');">
+            <a class="navbar-brand d-lg-none" onclick="$vm.nav_load_module('website_home');">
                 <div class=small_logo__ID>Woolcock</div>
             </a>
         </div>
@@ -15,9 +15,9 @@
         </button>
         <div id="navbars__ID" class="navbar-collapse collapse">
             <ul class="navbar-nav mr-auto">
-                <li class="nav-item"><a class="nav-link" data-toggle="collapse" data-target=".navbar-collapse.show" onclick="$vm.nav_load_module('panel_main_home');"><i class="fa fa-home"></i> Home</a></li>
-                <li class="nav-item"><a class="nav-link" data-toggle="collapse" data-target=".navbar-collapse.show" onclick="$vm.nav_load_module('panel_main');">Windfarm Screening</a></li>
-				<li class="nav-item"><a class="nav-link" data-toggle="collapse" data-target=".navbar-collapse.show" onclick="$vm.nav_load_module('panel_report');">Reports</a></li>
+                <li class="nav-item"><a class="nav-link" data-toggle="collapse" data-target=".navbar-collapse.show" onclick="$vm.nav_load_module('website_home');"><i class="fa fa-home"></i> Home</a></li>
+                <li class="nav-item"><a class="nav-link" data-toggle="collapse" data-target=".navbar-collapse.show" onclick="$vm.nav_load_module('windfarm-lab-study-screening-questionnaire-main');">Windfarm Lab Study Screening</a></li>
+				<li class="nav-item"><a class="nav-link" data-toggle="collapse" data-target=".navbar-collapse.show" onclick="$vm.nav_load_module('windfarm-lab-study-screening-questionnaire-report');">Reports</a></li>
                 <li class="nav-item" id=signin__ID >                     <a class="nav-link" onclick="$vm.nav_wappsystem_signin();" ><i class="fa fa-user"></i> Sign In</a></li>
 				<li class="nav-item" id=signout__ID style='display:none'><a class="nav-link" onclick=$vm.nav_signout() ><i class="fa fa-user"></i> Sign Out</a></li>
             </ul>

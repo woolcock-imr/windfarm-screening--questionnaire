@@ -1,0 +1,11 @@
+{
+	"api_path_development":"https://cbs.wappsystem.com/dev/",
+	"api_path_production":"https://rt.woolcock.org.au/",
+	"default_production":"Yes",
+    "panels":{
+        "website":                                          {"url":"",                      "modules":["website/index.json"]},
+        "windfarm-lab-study-screening-questionnaire-main":  {"url":"panel/main.html",       "modules":["participant-and-others/index.json","edc/index.json"]},
+        "windfarm-lab-study-screening-questionnaire-child": {"url":"panel/child.html",      "modules":["participant-and-others/index.json","edc/index.json"]},
+		"windfarm-lab-study-screening-questionnaire-report":{"url":"report/panel.html",     "modules":["report/index.json"]}
+	}
+}

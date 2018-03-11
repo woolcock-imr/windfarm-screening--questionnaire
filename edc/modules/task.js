@@ -4,7 +4,7 @@ var _task_fields='';
 //-------------------------------------
 var prefix=$vm.module_list[$vm.vm['__ID'].name].prefix; if(prefix==undefined) prefix="";
 var participant_pid=$vm.module_list[prefix+'participant'].table_id;
-var notes_pid=$vm.module_list[prefix+'clinical_trials_notes'].table_id;
+var notes_pid=$vm.module_list[prefix+'edc-notes'].table_id;
 //var site_filter_pid=$vm.module_list[prefix+'site_filter'].table_id;
 var sql_participant="UID";
 //-------------------------------------

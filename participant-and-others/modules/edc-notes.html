@@ -8,21 +8,15 @@
         //-------------------------------------
 		var prefix=$vm.module_list[$vm.vm['__ID'].name].prefix; if(prefix==undefined) prefix="";
 		//-------------------------------------
-        var participant_pid=_mlist[prefix+'participant'].table_id;
-		var sql_participant="S2";
+        var participant_pid=$vm.module_list[prefix+'participant'].table_id;
         //-------------------------------------
-        _fields="_Form,Subject_ID,Group,Task,Short_Title,Contents,Color";
+        _fields="_Form,Participant_ID,Participant,Task,Short_Title,Contents,Color";
         _fields+=",Submit Date|DateTime,Submitted by|Author,_Delete,_Hidden|Participant_uid";
         //-------------------------------------
         $('#D__ID').on('load',function(){ _set_req();_request_data(); });
         //-------------------------------------
         _cell_render=function(records,I,field,td,set_value,source){
             switch(field){
-                /*
-                case 'Visit_Task':
-                    records[I].vm_custom[field]=true;
-                    break;
-                */
                 case 'Color':
                     records[I].vm_custom[field]=true;
                     td.html('<input style="border:0; width:60px" type=Color />')
@@ -31,57 +25,55 @@
                         set_value($(this).val(),records,I,field);
                     });
                     break;
-                case 'Participant':
-                    td.autocomplete({
-                        minLength:0,
-                        source:function(request,response){
-                            var sql="with tb as (select name="+sql_participant+",value2=UID from [FORM-"+participant_pid+"])";
-                            sql+=" select top 10 name,value=name,value2 from tb where Name like '%'+@S1+'%' ";
-                            $VmAPI.request({data:{cmd:'auto',s1:request.term,sql:sql,minLength:0},callback:function(res){
-                                response($vm.autocomplete_list(res.table));
-                            }});
-                        },
-                        select: function(event,ui){
-                            records[I]['Participant_uid']=ui.item.value2;
-                        }
-                    })
-                    td.focus(function(){td.autocomplete("search","");});
+                case 'Participant_ID':
+				case 'Participant':
+				case 'Task':
+					records[I].vm_readonly[field]=true;
                     break;
             }
         }
         //-------------------------------------
         _new_pre_data_process=function(){
-            if($vm.vm['__ID'].op.Participant!==undefined) _records[0].Participant=$vm.vm['__ID'].op.Participant;
-            if($vm.vm['__ID'].op.Participant_uid!==undefined) _records[0].Participant_uid=$vm.vm['__ID'].op.Participant_uid;
-            if($vm.vm['__ID'].op.Visit_Task!==undefined)  _records[0].Visit_Task=$vm.vm['__ID'].op.Visit_Task;
+			var record=$vm.vm['__ID'].op.input.record;
+			_records[0].Participant_ID=record.Participant_uid;
+			_records[0].Participant=record.Participant;
+			var task_module=$vm.vm['__ID'].op.input.task_module;
+			var task_name=$vm.module_list[task_module].name_for_search;
+			_records[0].Task=task_name;
             _records[0].Color="#008800";
         }
         //-------------------------------------
         _before_submit=function(record,dbv){
-            var task_record_uid=$vm.vm['__ID'].op.task_record_uid;
-            var task_record_pid=$vm.vm['__ID'].op.task_record_pid;
-            if(task_record_uid!==undefined) dbv.PUID=task_record_uid;
-            if(task_record_pid!==undefined) dbv.PPID=task_record_pid;
-     		dbv.S1=record.Short_Title;
+			var input_record=$vm.vm['__ID'].op.input.record;
+			if(input_record!=undefined){
+				var task_pid=$vm.vm['__ID'].op.input.pid;
+	            var task_record_uid=input_record.UID;
+	            var task_record_pid=task_pid;
+	            if(task_record_uid!==undefined) dbv.PUID=task_record_uid;
+	            if(task_record_pid!==undefined) dbv.PPID=task_record_pid;
+	            dbv.GUID=input_record.Participant_uid;
+	            dbv.GPID=participant_pid;
+			}
+			dbv.S1=record.Short_Title;
 			dbv.S2=record.Color;
-            if(record.Participant_uid!==undefined) dbv.GUID=record.Participant_uid;
-            dbv.GPID=participant_pid;
             return true;
         };
         //-------------------------------------
         _set_req=function(){
             //-------------------
             $('#new__ID').show();
-            if($vm.vm['__ID'].op.sql_where===undefined){
-                $('#new__ID').hide();
-            }
+			var record=$vm.vm['__ID'].op.input.record;
+			var pid=$vm.vm['__ID'].op.input.pid;
+			if(record===undefined){
+				$('#new__ID').hide();
+			}
             //-------------------
             var sql="with tb as (select Information,ID,UID,PPID,PUID,DateTime,Author,RowNum=row_number() over (order by ID DESC) from [TABLE-"+_db_pid+"-@S1] )";
             sql+="select Information,ID,UID,PPID,PUID,DateTime,Author,RowNum from tb where RowNum between @I6 and @I7";
             var sql_n="select count(ID) from [TABLE-"+_db_pid+"-@S1]";
             //-------------------
-            if($vm.vm['__ID'].op.sql_where!==undefined){
-                var sql_where=$vm.vm['__ID'].op.sql_where;
+            if(record!==undefined){
+				var sql_where=" PPID="+pid+ "and PUID="+record.UID;
                 sql=sql.replace('RowNum between @I6 and @I7',sql_where);
                 sql_n+=" where "+sql_where;
             }

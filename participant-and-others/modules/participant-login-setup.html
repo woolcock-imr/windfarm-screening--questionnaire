@@ -21,7 +21,6 @@
     function F__ID(){
         //---------------------------------------------
 		var prefix=$vm.module_list[$vm.vm['__ID'].name].prefix; if(prefix==undefined) prefix="";
-		//-------------------------------------
 		var setup_pid=$vm.module_list[$vm.vm['__ID'].name].table_id;
 		var record;
 		var q_list;
@@ -33,9 +32,8 @@
 		})
 		//---------------------------------------------
 		var setup=function(txt){
-			//q_list=$vm.app_config.quest_list;
 			q_list=$vm.module_list[prefix+"quest_list"].list;
-			record=$vm.vm['__ID'].op.record;
+			record=$vm.vm['__ID'].op.input.record;
             $('#Login_ID__ID').val(record.UID+"-"+setup_pid);
             $('#Participant__ID').val(record.Study_ID);
             $('#Password__ID').val('');
@@ -44,6 +42,7 @@
         //-------------------------------------
         var load_data=function(){
             var sql="select top 1 Login_ID= @('Login_ID'),Password= @('Password'),List= @('List') from [TABLE-"+setup_pid+"] where PUID="+record.UID;
+            //sql=sql.replace(/@\('/g,"JSON_VALUE(Information,'$.");
             var req_data={ cmd:"query_records",sql:sql}
             $VmAPI.request({data:req_data,callback:function(res){
                 if(res.records.length>0){
@@ -164,7 +163,6 @@
         var add_record=function(row_data,dbv){
             var req={cmd:"add_record",db_pid:setup_pid.toString(),data:row_data,dbv:dbv};
             $VmAPI.request({data:req,callback:function(res){
-                //$('#back__ID').trigger('click');
 				window.history.go(-1);
             }});
         }
@@ -172,7 +170,6 @@
         var modify_record=function(row_data,dbv,rid){
             var req={cmd:"modify_record",rid:rid,db_pid:setup_pid.toString(),data:row_data,dbv:dbv};
             $VmAPI.request({data:req,callback:function(res){
-                //$('#back__ID').trigger('click');
 				window.history.go(-1);
             }});
         }
