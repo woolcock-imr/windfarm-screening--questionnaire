@@ -5,6 +5,7 @@
 		"numbers":	          						{"url":"report/modules/numbers.html", "name_for_search":"Numbers"},
 		"progress_graph":	          				{"url":"report/modules/progress_graph.html", "name_for_search":"Progress graph"},
 		"registration":	          					{"url":"report/modules/registration.html", "name_for_search":"Registration"},
-		"screening_complete":	          			{"url":"report/modules/screening_complete.html", "name_for_search":"Screening complete"}
+		"screening_complete":	          			{"url":"report/modules/screening_complete.html", "name_for_search":"Screening complete"},
+		"vasv1":	          			{"url":"report/modules/vasv1.html", "name_for_search":"Vasv1"}
 	}
 }
